@@ -1,0 +1,80 @@
+import {useState} from 'react'
+import {View,Text,StyleSheet,TextInput} from 'react-native'
+const Body=()=>{
+let x=0
+const [height,setHeight]=useState("")
+const [weight,setWeight]=useState("")
+const [result,setResult]=useState("")
+const calculateBMI=(title,value)=>{
+  let h=0;
+  let w=0;
+if(title==="height")
+{
+  setHeight(value)
+ h=parseFloat(value)
+
+}
+else
+{
+  setWeight(value)
+ w=parseFloat(value)
+
+}
+
+  // const w=parseFloat(weight)
+  // const h=parseFloat(height)
+  if(isNaN(w) || isNaN(h))
+{
+
+  setResult("لطفا قد و وزن خود را بصورت عددی وارد کنید");
+   setHeight(0)
+   setWeight(0)
+  return;
+}
+const bmi=w/(h*h)
+if(bmi<18.5)
+{setResult("کم وزن")}
+
+else if(bmi<25)
+{setResult("وزن مناسب")}
+
+else if(bmi<29)
+{setResult(" اضافه وزن")}
+
+else{setResult(" چاق")}
+ }
+
+ return (
+          <View style={styles.conatiner}>
+          <TextInput style={styles.input}  onChangeText={    (value)=>{calculateBMI("height",parseInt( value))}   }  placeholder="قد خود را وارد کنید ..."/>
+          <TextInput style={styles.input}   onChangeText={    (value)=>{calculateBMI("weight",parseInt(value))}  }placeholder="وزن خود را وارد کنید ..." />
+          <Text style={styles.result}>{result}</Text>
+          </View>
+
+  )
+}
+export default Body
+const styles=StyleSheet.create({
+conatiner:{
+  backgroundColor:"lightgreen",
+  flex:.5,
+  justifyContent:"space-around",
+  alignItems:"center",
+  borderRadius:"10px"
+  
+},
+input:{backgroundColor:"white",
+padding:10,
+ borderRadius:"5px",direction:"rtl"
+},
+result:{
+  backgroundColor:"dodgerblue",
+paddingVertical:5,
+paddingHorizontal:30,
+color:"white",
+
+}
+
+
+
+})
